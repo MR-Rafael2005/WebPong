@@ -17,8 +17,6 @@ const Pong = () => {
         })
     })
 
-
-
     return(
         <div>
             {Object.keys(playersList).map((key) => { 
