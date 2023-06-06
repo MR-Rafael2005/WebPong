@@ -8,7 +8,7 @@ const Chat = (props) => {
         <div style={{whiteSpace: "pre-wrap"}}>
             <div>{props.mensagens}</div>
             <input type="text" value={mensToSend} onChange={(e) => {setMensToSend(e.target.value)}} />
-            <button onClick={() => {props.sendMensage(mensToSend)}}>Send</button>
+            <button onClick={() => { if(mensToSend) {props.sendMensage(mensToSend); setMensToSend("")}}}>Send</button>
         </div>
     )
 }
