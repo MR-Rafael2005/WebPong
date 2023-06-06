@@ -26,24 +26,31 @@ const updatePlayers = () => {
   sockets.emit("PlayerUpdate", game.players);
 }
 
-//Função quando um player é conectado
+const sendMessage = (name,message) => {
+  sockets.emit("ReciMessage", name + ": " + message);
+}
+
 sockets.on("connection", (socket) => {
     console.log( socket.id + " foi conectado");
-
     const name = "player_" + socket.id.substr(0,5);
-
     game.players[socket.id] = { name };
+    sendMessage(game.players[socket.id].name, "(CONNECTED)");
 
-    //"Define um parametro" para quando o player(id) for desconctado
     socket.on('disconnect', () => {
+      sendMessage(game.players[socket.id].name, "(DISCONNECTED)");
       delete game.players[socket.id];
       updatePlayers();
     })
 
+    socket.on("SendMessage", (message) => {
+      sendMessage(game.players[socket.id].name, message);
+    })
+
     updatePlayers();
+
 })
 
-//app.get("/", (req,res) => res.send("Oi mundo"));
 
+app.get("/", (req,res) => res.send("Porta do server"));
 const port = 4000;
 server.listen(port, () => console.log("Testando a porta " + port + " do server"));
