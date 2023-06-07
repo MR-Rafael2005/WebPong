@@ -5,8 +5,8 @@ const Chat = (props) => {
 
     const [mensToSend, setMensToSend] = useState("");
     return(
-        <div style={{whiteSpace: "pre-wrap"}}>
-            <div>{props.mensagens}</div>
+        <div style={{flex: 1}}>
+            <div style={{whiteSpace: "pre-wrap"}}>{props.mensagens}</div>
             <input type="text" value={mensToSend} onChange={(e) => {setMensToSend(e.target.value)}} />
             <button onClick={() => { if(mensToSend) {props.sendMensage(mensToSend); setMensToSend("")}}}>Send</button>
         </div>
