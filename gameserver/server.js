@@ -46,9 +46,8 @@ const leaveRoom = (socketID) => {
     }
     if((room.player1 === undefined && room.player2 === undefined))
     {
-      delete game.rooms[socketID];
+      delete game.rooms[game.players[socketID].room];
     }
-
     game.players[socketID].room = undefined;
   }
   updatePlayers();

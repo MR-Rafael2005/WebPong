@@ -8,7 +8,7 @@ import { GameContext, sendM, createRoom, leaveRoom, joinRoom } from "./gameConte
 const Pong = () => {
 
     const {isConnect, room, rooms, player, players, messages} = useContext(GameContext);
-
+    console.log(room)
     return(
         <>
             <div>
