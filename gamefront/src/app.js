@@ -7,9 +7,13 @@ import GlobalStyle from "./styleGlobal";
 export default function App()
 {
     return(
-        <GameProvider>
+        <>
             <GlobalStyle/>
-            <Pong/>
-        </GameProvider>
+            <div className="main-container">
+                <GameProvider>
+                    <Pong/>
+                </GameProvider>
+            </div>
+        </>
     )
 }

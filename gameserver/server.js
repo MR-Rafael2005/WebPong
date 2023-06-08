@@ -17,7 +17,8 @@ const sockets = new Server(server, {
 
 const game = {
   players: {},
-  rooms: {}
+  rooms: {},
+  match: {}
 }
 
 
@@ -29,15 +30,22 @@ const updateRooms = () => {
   sockets.emit("RoomsUpdate", game.rooms);
 }
 
+const updateMatchs = (roomid) => {
+  sockets.to(roomid).emit("MatchUpdate", game.match[roomid]);
+}
+
 const sendMessage = (name,message) => {
   sockets.emit("ReciMessage", name + ": " + message);
 }
 
-const leaveRoom = (socketID) => {
+const leaveRoom = (socket) => {
+  const socketID = socket.id;
   const roomID = game.players[socketID].room;
   const room = game.rooms[roomID];
 
   if(room) {
+    socket.leave(roomID);
+
     if(socketID === room.player1)
     {
       room.player1 = undefined;
@@ -60,7 +68,7 @@ sockets.on("connection", (socket) => {
     sendMessage(game.players[socket.id].name, "(CONNECTED)");
 
     socket.on('disconnect', () => {
-      leaveRoom(socket.id);
+      leaveRoom(socket);
       sendMessage(game.players[socket.id].name, "(DISCONNECTED)");
       delete game.players[socket.id];
       updatePlayers();
@@ -75,7 +83,7 @@ sockets.on("connection", (socket) => {
       socket.join(socket.id);
 
       game.rooms[socket.id] = {
-        name: game.players[socket.id].name + "_ROOM",
+        name: "Sala do player: " + game.players[socket.id].name,
         player1: socket.id,
         player2: undefined
       }
@@ -86,7 +94,7 @@ sockets.on("connection", (socket) => {
     })
 
     socket.on("LeaveRoom", () => {
-      leaveRoom(socket.id);    
+      leaveRoom(socket);    
       updatePlayers();
       updateRooms();
     })
@@ -99,6 +107,17 @@ sockets.on("connection", (socket) => {
       game.rooms[roomid]["player" + pos] = socket.id;
 
       game.players[socket.id].room = roomid;
+
+      const room = game.rooms[roomid];
+      if(room.player1 && room.player2)
+      {
+        game.match[roomid] = {
+          score1: 0,
+          score2: 0,
+          status: "START"
+        }
+      }
+      updateMatchs(roomid); 
       updatePlayers();
       updateRooms();
     })

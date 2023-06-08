@@ -2,10 +2,11 @@ import React from "react";
 
 const PlayerList = (props) => {
     return(
-        <div style={{position: "absolute", left: 800}}>
+        <div>
+            <span className="list-title">Jogadores:</span>
             {Object.keys(props.playersList).map((key) => { 
                 return(
-                    <div>{props.playersList[key].name}</div>
+                    <div className="list-item">{props.playersList[key].name}</div>
                 )
             })}
         </div>

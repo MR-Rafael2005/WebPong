@@ -61,6 +61,11 @@ const reducer = (state, change) => {
                 ...state,
                 rooms: change.newvalue
             })
+        case "MATCH":
+            return({
+                ...state,
+                match: change.newvalue
+            })
         default:
             return state
     }
@@ -72,7 +77,8 @@ const initialState = {
     rooms: {},
     player: {},
     players: {},
-    messages: []
+    messages: [],
+    match: {}
 }
 
 const GameProvider = (props) => {
@@ -96,6 +102,9 @@ const GameProvider = (props) => {
         socket.on("RoomsUpdate", (rooms) => {
             dispatch({type: "ROOMS", newvalue: rooms})
             dispatch({type: "ROOM", newvalue: socket.id})
+        })
+        socket.on("MatchUpdate", (match) => {
+            dispatch({type: "MATCH", newvalue: match})
         })
         socket.open();
     })
