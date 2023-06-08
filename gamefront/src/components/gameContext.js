@@ -24,6 +24,10 @@ const joinRoom = (roomID) => {
     socket.emit("JoinRoom", roomID);
 }
 
+const gameLoaded = () => {
+    socket.emit("GameLoaded");
+}
+
 const reducer = (state, change) => {
     switch (change.type) {
         case "CONNECT":
@@ -116,4 +120,12 @@ const GameProvider = (props) => {
     )
 }
 
-export { GameContext, GameProvider, sendM, createRoom, leaveRoom, joinRoom }
+export { 
+GameContext,
+GameProvider, 
+sendM, 
+createRoom, 
+leaveRoom, 
+joinRoom, 
+gameLoaded 
+}

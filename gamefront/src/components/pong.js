@@ -5,6 +5,7 @@ import PlayerList from "./playerList.js";
 import Chat from "./chat.js";
 import { GameContext, sendM, createRoom, leaveRoom, joinRoom } from "./gameContext.js";
 import RoomsList from "./roomsList.js";
+import Game from "./game.js";
 
 const Pong = () => {
 
@@ -19,10 +20,10 @@ const Pong = () => {
             }
             
             {match.status && 
-                <div>JOGO</div>
+                <Game/>
             }
             
-            {!match.status &&
+            {!match.status && 
                 <div style={{display: "flex", flexDirection: "row"}}>
                     <div className="list-container">
                         <RoomsList/>

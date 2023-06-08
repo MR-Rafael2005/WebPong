@@ -95,6 +95,17 @@ input{
 
 }
 
+//game.js
+.game-message {
+    position: absolute;
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    text-align: center;
+    left: 120px;
+    top: 60px;
+}
+
 `
 
 export default GlobalStyle;
