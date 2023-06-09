@@ -1,8 +1,8 @@
 # Fdb version 3
-["pdflatex"] 1686276833 "/home/rafael/Área de Trabalho/WebPong/doc/ApICC.tex" "/home/rafael/Área de Trabalho/WebPong/doc/ApICC.pdf" "ApICC" 1686276835
+["pdflatex"] 1686277382 "/home/rafael/Área de Trabalho/WebPong/doc/ApICC.tex" "/home/rafael/Área de Trabalho/WebPong/doc/ApICC.pdf" "ApICC" 1686277384
   "/etc/texmf/web2c/texmf.cnf" 1677170983 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/rafael/Área de Trabalho/WebPong/doc/ApICC.aux" 1686276834 967 79d940dabb929135c80ea6236e6d58da ""
-  "/home/rafael/Área de Trabalho/WebPong/doc/ApICC.tex" 1686276832 6123 09e7854f72dfb47f64a68f851aa60460 ""
+  "/home/rafael/Área de Trabalho/WebPong/doc/ApICC.aux" 1686277384 967 c27df254ef6d436d386db15852d475ec ""
+  "/home/rafael/Área de Trabalho/WebPong/doc/ApICC.tex" 1686277379 6129 e6c563785678b2f3c7b5e2cb529d5f47 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1095.tfm" 1136768653 3584 21b378cca2e40816b0e6d74a4dc98f04 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm" 1136768653 3584 402da0b29eafbad07963b1224b222f18 ""
@@ -195,15 +195,15 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1581979058 38841 ce3692aa899bb693b90b87eaa5d4d84e ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1677181576 4770781 1ed1abab22da9c3e2cc82e4db562318b ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1685580958 8257911 c574b699f4a7931bd35b48f95d8fac1d ""
-  "ApICC.aux" 1686276834 967 79d940dabb929135c80ea6236e6d58da "pdflatex"
-  "ApICC.tex" 1686276832 6123 09e7854f72dfb47f64a68f851aa60460 ""
+  "ApICC.aux" 1686277384 967 c27df254ef6d436d386db15852d475ec "pdflatex"
+  "ApICC.tex" 1686277379 6129 e6c563785678b2f3c7b5e2cb529d5f47 ""
   "fluxograma.png" 1686273117 25460 53bbe59cc9f95825705e99d186fc70a4 ""
   "gamescreen1.png" 1686276581 37247 875d799526132813dc1feb12b0cc6222 ""
   "gamescreen2.png" 1686276604 11155 8a448bafad1786546e6e6a7b995d5f5c ""
   "uva.png" 1685585288 99205 c3bf33f7fed07484e5f22397ce10cc53 ""
   (generated)
-  "ApICC.pdf"
+  "/home/rafael/Área de Trabalho/WebPong/doc/ApICC.log"
   "ApICC.aux"
   "/home/rafael/Área de Trabalho/WebPong/doc/ApICC.pdf"
+  "ApICC.pdf"
   "ApICC.log"
-  "/home/rafael/Área de Trabalho/WebPong/doc/ApICC.log"

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.5.31)  8 JUN 2023 23:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.5.31)  8 JUN 2023 23:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1364,9 +1364,9 @@ Package wrapfig Warning: wrapfigure used inside a conflicting environment on inp
 File: fluxograma.png Graphic file (type png)
 <use fluxograma.png>
 Package pdftex.def Info: fluxograma.png  used on input line 115.
-(pdftex.def)             Requested size: 713.66449pt x 335.25168pt.
+(pdftex.def)             Requested size: 356.83224pt x 167.62584pt.
 
-Overfull \hbox (676.67583pt too wide) in paragraph at lines 115--116
+Overfull \hbox (319.84358pt too wide) in paragraph at lines 115--116
 [][] 
  []
 
@@ -1383,36 +1383,36 @@ Package wrapfig Warning: wrapfigure used inside a conflicting environment on inp
 File: gamescreen1.png Graphic file (type png)
 <use gamescreen1.png>
 Package pdftex.def Info: gamescreen1.png  used on input line 121.
-(pdftex.def)             Requested size: 1011.77753pt x 653.43965pt.
+(pdftex.def)             Requested size: 505.88876pt x 326.71982pt.
 
-Overfull \hbox (974.78886pt too wide) in paragraph at lines 121--122
+Overfull \hbox (468.9001pt too wide) in paragraph at lines 121--122
 [][] 
  []
 
 
 Package wrapfig Warning: Stationary wrapfigure forced to float on input line 123.
 
-[2 </home/rafael/Área de Trabalho/WebPong/doc/fluxograma.png>]
 
 Package wrapfig Warning: Collision between wrapping environments on input line 127.
 
 
 Package wrapfig Warning: wrapfigure used inside a conflicting environment on input line 127.
 
-<gamescreen2.png, id=36, 1012.78375pt x 646.415pt>
+<gamescreen2.png, id=29, 1012.78375pt x 646.415pt>
 File: gamescreen2.png Graphic file (type png)
 <use gamescreen2.png>
 Package pdftex.def Info: gamescreen2.png  used on input line 128.
-(pdftex.def)             Requested size: 1012.78128pt x 646.41342pt.
+(pdftex.def)             Requested size: 506.39064pt x 323.20671pt.
 
-Overfull \hbox (975.79262pt too wide) in paragraph at lines 128--129
+Overfull \hbox (469.40198pt too wide) in paragraph at lines 128--129
 [][] 
  []
 
+[2 </home/rafael/Área de Trabalho/WebPong/doc/fluxograma.png>]
 
 Package wrapfig Warning: Stationary wrapfigure forced to float on input line 130.
 
-[3 </home/rafael/Área de Trabalho/WebPong/doc/gamescreen1.png>] [4 </home/rafael/Área de Trabalho/WebPong/doc/gamescreen2.png>]
+[3 </home/rafael/Área de Trabalho/WebPong/doc/gamescreen1.png> </home/rafael/Área de Trabalho/WebPong/doc/gamescreen2.png>]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 132.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 132.
  (/home/rafael/Área de Trabalho/WebPong/doc/ApICC.aux)
@@ -1421,18 +1421,18 @@ Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 132.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 132.
  ) 
 Here is how much of TeX's memory you used:
- 29194 strings out of 481239
- 519680 string characters out of 5920377
+ 29193 strings out of 481239
+ 519674 string characters out of 5920377
  898815 words of memory out of 5000000
  43944 multiletter control sequences out of 15000+600000
  538590 words of font info for 34 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,11n,69p,990b,587s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,69p,990b,587s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texmf/fonts/type1/public/cm-super/sfbx1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfss1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfsx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on "/home/rafael/Área de Trabalho/WebPong/doc/ApICC.pdf" (4 pages, 287570 bytes).
+Output written on "/home/rafael/Área de Trabalho/WebPong/doc/ApICC.pdf" (3 pages, 287255 bytes).
 PDF statistics:
- 78 PDF objects out of 1000 (max. 8388607)
- 59 compressed objects within 1 object stream
- 14 named destinations out of 1000 (max. 500000)
+ 74 PDF objects out of 1000 (max. 8388607)
+ 56 compressed objects within 1 object stream
+ 13 named destinations out of 1000 (max. 500000)
  33 words of extra memory for PDF output out of 10000 (max. 10000000)
 
