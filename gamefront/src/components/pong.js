@@ -10,8 +10,6 @@ import Game from "./game.js";
 const Pong = () => {
 
     const {isConnect, room, rooms, player, players, messages, match} = useContext(GameContext);
-
-    console.log(room)
     return(
         <>
             {

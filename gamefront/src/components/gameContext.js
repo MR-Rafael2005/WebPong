@@ -28,6 +28,18 @@ const gameLoaded = () => {
     socket.emit("GameLoaded");
 }
 
+let lastType = undefined;
+const sendKey = (type, key) => {
+    if(lastType === type)
+    {
+        return;
+    }
+
+    lastType = type;
+    
+    socket.emit("SendKey", { type, key });
+}
+
 const reducer = (state, change) => {
     switch (change.type) {
         case "CONNECT":
@@ -127,5 +139,6 @@ sendM,
 createRoom, 
 leaveRoom, 
 joinRoom, 
-gameLoaded 
+gameLoaded, 
+sendKey 
 }

@@ -1,0 +1,20 @@
+*node_modules
+./gamefront/.pnp
+./gamefront/.pnp.js
+
+# testing
+/gamefront//coverage
+
+# production
+/gamefront//build
+
+# misc
+/gamefront/.DS_Store
+/gamefront/.env.local
+/gamefront/.env.development.local
+/gamefront/.env.test.local
+/gamefront/.env.production.local
+
+/gamefront/npm-debug.log*
+/gamefront/yarn-debug.log*
+/gamefront/yarn-error.log*

@@ -210,6 +210,21 @@ sockets.on("connection", (socket) => {
       }
     })
 
+
+    socket.on("SendKey", ({ type, key }) => {
+      const socketID = socket.id;
+      const player = game.players[socketID];
+      const roomID = player.room;
+      const room = game.rooms[roomID];
+      const playerNum = "player" + (socketID === room.player1 ? 1 : 2);
+      const match = game.match[roomID];
+      const direction = (type === "keyup" ? "STOP" : key.replace("Arrow", '').toUpperCase());
+
+      match[playerNum] = {...match[playerNum], direction};
+
+      console.log("A tecla " + key + " foi pressionada e agora a direção do player é: " + direction);
+    })
+
     updatePlayers();
     updateRooms();
 })
