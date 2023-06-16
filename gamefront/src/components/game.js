@@ -4,7 +4,7 @@ import { GameContext,gameLoaded, leaveRoom, sendKey } from "./gameContext";
 const Game = () => {
 
     const {isConnect, room, rooms, player, players, messages, match} = useContext(GameContext);
-    const {gameConfig, ball, message} = match;
+    const {gameConfig, ball, message, player1, player2} = match;
 
     useEffect(() => {
         gameLoaded();
@@ -77,6 +77,26 @@ const Game = () => {
                         cy={ball.y.toString()}
                         r={ball.width.toString()}
                         style={{fill: "#fff"}}
+                    />
+                }
+                
+                {player1 &&
+                    <Rect
+                        x={player1.x.toString()}
+                        y={player1.y.toString()}
+                        width={player1.width.toString()}
+                        height={player1.height.toString()}
+                        style={{ fill: "rgb(255,255,255)" }}
+                    />
+                }
+
+                {player2 &&
+                    <Rect
+                        x={player2.x.toString()}
+                        y={player2.y.toString()}
+                        width={player2.width.toString()}
+                        height={player2.height.toString()}
+                        style={{ fill: "rgb(255,255,255)" }}
                     />
                 }
             </SVG>

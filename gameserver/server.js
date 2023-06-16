@@ -51,41 +51,107 @@ const gameProgress = (roomID) => {
     return;
   }
 
-  const { ball } = match;
-
   switch (match.status) {
     case "PLAY":
-      const xpos = ball.x + ball.xspeed * ball.xdirection;
-      const ypos = ball.y + ball.yspeed * ball.ydirection;
-
-      ball.x = xpos;
-      ball.y = ypos;
-
-      if(xpos > match.gameConfig.width - ball.width || xpos < ball.width)
-      {
-        ball.xdirection *= -1;
-      }
-
-      if(ypos > match.gameConfig.height - ball.width || ypos < ball.width)
-      {
-        ball.ydirection *= -1;
-      }
-
-      if(xpos < ball.width)
-      {
-        match.score2++;
-      }
-
-      if(xpos > match.gameConfig.width - ball.width)
-      {
-        match.score1++;
-      }
+      moveBall(match);
+      movePaddle(match);
+      checkColision(match);
       break;
   }
 
   updateMatchs(roomID);
 
   setTimeout(() => {gameProgress(roomID)}, 1000 / 60);
+}
+
+const checkColision = (match) => {
+  const { gameConfig, ball } = match;
+
+  if(ball.y > gameConfig.height - ball.width || ball.y < ball.width)
+  {
+    ball.ydirection *= -1;
+  }
+
+
+  const {x: bx, y: by, width: br} = ball;
+
+  const playerNum = bx < gameConfig.width / 2 ? 1 : 2;
+  const player = "player" + playerNum;
+
+  const {x: rx, y: ry, width: rw, height: rh} = match[player];
+
+  let testX = bx;
+  let testY = by;
+
+  if(bx < rx)
+  {
+    testX = rx;
+  } else if(bx > rx + rw) {
+    testX = rx + rw;
+  }
+
+  if(by < ry)
+  {
+    testY = ry;
+  } else if(by > ry + rh) {
+    testY = ry + rh;
+  }
+
+  const distX = bx - testX;
+  const distY = by - testY;
+  const distance = Math.sqrt((distX * distX) + (distY * distY));
+
+  if(distance <= br)
+  {
+    ball.xdirection *= -1;
+    ball.x = playerNum === 1 ? match[player].x + match[player].width + br : match[player].x - br;
+  } else if(ball.x < ball.width) {
+    match.score2++;
+    ball.xdirection = 1;
+    restartMatch(match);
+  } else if(ball.x > gameConfig.width - ball.width) {
+    match.score1++;
+    ball.xdirection = -1;
+    restartMatch(match);  
+  }
+}
+
+const moveBall = ({ ball }) => {
+  const xPos = ball.x + ball.xspeed * ball.xdirection;
+  const yPos = ball.y + ball.yspeed * ball.ydirection;
+
+  ball.x = xPos;
+  ball.y = yPos;
+}
+
+const movePaddle = (match) => {
+  [1,2].forEach((i) => {
+    const player = match["player" + i];
+
+    switch(player.direction) 
+    {
+      case "UP":
+        player.y -= player.speed;
+        break;
+      case "DOWN":
+        player.y += player.speed;
+        break;
+    }
+
+    if(player.y < 0)
+    {
+      player.y = 0;
+    } else if(player.y + player.height > match.gameConfig.height) {
+      player.y = match.gameConfig.height - player.height;
+    }
+  })
+}
+
+const restartMatch = (match) => {
+  const {ball, gameConfig} = match;
+
+  ball.x = gameConfig.width / 2;
+  ball.y = gameConfig.height / 2;
 }
 
 const leaveRoom = (socket) => {
@@ -126,6 +192,8 @@ sockets.on("connection", (socket) => {
     const name = "player_" + socket.id.substr(0,5);
     game.players[socket.id] = { name };
     sendMessage(game.players[socket.id].name, "(CONNECTED)");
+    updatePlayers();
+    updateRooms();
 
     socket.on('disconnect', () => {
       leaveRoom(socket);
@@ -174,8 +242,22 @@ sockets.on("connection", (socket) => {
       {
         game.match[roomid] = {
           gameConfig,
-          player1: {ready: false},
-          player2: {ready: false},
+          player1: {
+            ready: false,
+            x: 5,
+            y: gameConfig.height / 2 - 40,
+            height: 80,
+            width: 10,
+            speed: 5
+          },
+          player2: {
+            ready: false,
+            x: gameConfig.width - 15,
+            y: gameConfig.height / 2 - 40,
+            height: 80,
+            width: 10,
+            speed: 5
+          },
           score1: 0,
           score2: 0,
           status: "START"
@@ -193,7 +275,10 @@ sockets.on("connection", (socket) => {
       const match = game.match[roomID];
       const player = "player" + (game.rooms[roomID].player1 == socket.id ? 1 : 2);
 
-      match[player] = {ready: true};
+      match[player] = {
+        ...match[player],
+        ready: true
+      };
 
       if(match.player1.ready && match.player2.ready)
       {
@@ -221,12 +306,7 @@ sockets.on("connection", (socket) => {
       const direction = (type === "keyup" ? "STOP" : key.replace("Arrow", '').toUpperCase());
 
       match[playerNum] = {...match[playerNum], direction};
-
-      console.log("A tecla " + key + " foi pressionada e agora a direção do player é: " + direction);
     })
-
-    updatePlayers();
-    updateRooms();
 })
 
 
