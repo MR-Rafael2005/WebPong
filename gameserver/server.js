@@ -23,7 +23,8 @@ const gameConfig = {
 const game = {
   players: {},
   rooms: {},
-  match: {}
+  match: {},
+  names: {}
 }
 
 
@@ -188,18 +189,25 @@ const leaveRoom = (socket) => {
   }
 }
 
+const nameUpdate = () => {
+  sockets.emit("NamesUpdate", game.names);
+}
+
+
 sockets.on("connection", (socket) => {
     const name = "player_" + socket.id.substr(0,5);
     game.players[socket.id] = { name };
-    sendMessage(game.players[socket.id].name, "(CONNECTED)");
+    //sendMessage(game.players[socket.id].name, "(CONNECTED)");
     updatePlayers();
     updateRooms();
 
     socket.on('disconnect', () => {
       leaveRoom(socket);
-      sendMessage(game.players[socket.id].name, "(DISCONNECTED)");
+      sendMessage(game.names[socket.id].newname, "(SAIU)");
       delete game.players[socket.id];
+      delete game.names[socket.id];
       updatePlayers();
+      nameUpdate();
       updateRooms();
     })
 
@@ -211,7 +219,7 @@ sockets.on("connection", (socket) => {
       socket.join(socket.id);
 
       game.rooms[socket.id] = {
-        name: "Sala do player: " + game.players[socket.id].name,
+        name: "Sala do player: " + game.names[socket.id].newname,
         player1: socket.id,
         player2: undefined
       }
@@ -306,6 +314,12 @@ sockets.on("connection", (socket) => {
       const direction = (type === "keyup" ? "STOP" : key.replace("Arrow", '').toUpperCase());
 
       match[playerNum] = {...match[playerNum], direction};
+    })
+
+    socket.on("NameAdd", (newname) => {
+      game.names[socket.id] = { newname };
+      sendMessage(game.names[socket.id].newname, "(ENTROU)");  
+      nameUpdate();
     })
 })
 
