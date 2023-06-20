@@ -6,7 +6,7 @@ const PlayerList = (props) => {
             <span className="list-title">Jogadores:</span>
             {Object.keys(props.playersList).map((key) => { 
                 return(
-                    <div className="list-item">{props.playersList[key].name}</div>
+                    <div className="list-item">{props.playersList[key].newname}</div>
                 )
             })}
         </div>

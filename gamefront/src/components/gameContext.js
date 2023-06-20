@@ -28,6 +28,10 @@ const gameLoaded = () => {
     socket.emit("GameLoaded");
 }
 
+const sendName = (name) => {
+    socket.emit("NameAdd", name);
+}
+
 let lastType = undefined;
 const sendKey = (type, key) => {
     if(lastType === type)
@@ -82,6 +86,21 @@ const reducer = (state, change) => {
                 ...state,
                 match: change.newvalue
             })
+        case "PNAME":
+            return({
+                ...state,
+                playerName: change.newvalue
+            })
+        case "PSNAME":
+            return({
+                ...state,
+                playersName: change.newvalue
+            })
+        case "NAMED":
+            return({
+                ...state,
+                named: change.newvalue
+            })
         default:
             return state
     }
@@ -94,7 +113,10 @@ const initialState = {
     player: {},
     players: {},
     messages: [],
-    match: {}
+    match: {},
+    playerName: {},
+    playersName: {},
+    named: false
 }
 
 const GameProvider = (props) => {
@@ -122,6 +144,14 @@ const GameProvider = (props) => {
         socket.on("MatchUpdate", (match) => {
             dispatch({type: "MATCH", newvalue: match})
         })
+        socket.on("NamesUpdate", (names) => {
+            dispatch({type: "PNAME", newvalue: names[socket.id]})
+            dispatch({type: "PSNAME", newvalue: names})
+            if(names[socket.id])
+            {
+                dispatch({type: "NAMED", newvalue: true})
+            }
+        })
         socket.open();
     })
     
@@ -140,5 +170,6 @@ createRoom,
 leaveRoom, 
 joinRoom, 
 gameLoaded, 
-sendKey 
+sendKey, 
+sendName
 }
