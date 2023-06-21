@@ -62,22 +62,28 @@ const gameProgress = (roomID) => {
 
   updateMatchs(roomID);
 
-  setTimeout(() => {gameProgress(roomID)}, 1000 / 60);
+  setTimeout(() => {gameProgress(roomID)}, 1000 / 30);
 }
 
 const checkColision = (match) => {
-  const { gameConfig, ball } = match;
+  const { gameConfig, ball} = match;
 
-  if(ball.y > gameConfig.height - ball.width || ball.y < ball.width)
+  if(ball.y > gameConfig.height - ball.width)
   {
-    ball.ydirection *= -1;
+    ball.y = gameConfig.height - (ball.width * 2);
+    ball.ydirection = -1;
   }
 
+  if(ball.y < ball.width) 
+  {
+    ball.y = ball.width * 2;
+    ball.ydirection = 1;
+  }
 
   const {x: bx, y: by, width: br} = ball;
 
-  const playerNum = bx < gameConfig.width / 2 ? 1 : 2;
-  const player = "player" + playerNum;
+  const playerN = bx < gameConfig.width / 2 ? 1 : 2;
+  const player = "player" + playerN;
 
   const {x: rx, y: ry, width: rw, height: rh} = match[player];
 
@@ -105,16 +111,33 @@ const checkColision = (match) => {
   if(distance <= br)
   {
     ball.xdirection *= -1;
-    ball.x = playerNum === 1 ? match[player].x + match[player].width + br : match[player].x - br;
+    ball.x = playerN === 1 ? match[player].x + match[player].width + br : match[player].x - br;
+
+    const quarterTop = by < ry + (rh / 4);
+    const quarterBott = by > ry + rh - (rh / 4);
+    const halfTop = by < ry + (rh / 2);
+    const halfBott = by > ry + rh - (rh / 2);
+    
+    if(quarterBott || quarterTop)
+    {
+      ball.yspeed += 0.15;
+      ball.xspeed -= 0.15;
+
+      ball.ydirection = quarterBott ? 1 : -1;
+    } else if(halfTop || halfBott) {
+      ball.yspeed += 0.05;
+      ball.xspeed -= 0.05;
+    }
+
+    ball.xspeed *= 1.1;
   } else if(ball.x < ball.width) {
     match.score2++;
-    ball.xdirection = 1;
     restartMatch(match);
   } else if(ball.x > gameConfig.width - ball.width) {
     match.score1++;
-    ball.xdirection = -1;
-    restartMatch(match);  
+    restartMatch(match);
   }
+
 }
 
 const moveBall = ({ ball }) => {
@@ -149,10 +172,15 @@ const movePaddle = (match) => {
 }
 
 const restartMatch = (match) => {
-  const {ball, gameConfig} = match;
-
-  ball.x = gameConfig.width / 2;
-  ball.y = gameConfig.height / 2;
+  match.ball = {
+    width: 5,
+    xdirection: match.ball ? match.ball.xdirection * -1 : 1,
+    ydirection: 2,
+    xspeed: 5,
+    yspeed: 5 * (match.gameConfig.height / match.gameConfig.width),
+    x: gameConfig.width / 2,
+    y: gameConfig.height / 2,
+  }
 }
 
 const leaveRoom = (socket) => {
@@ -293,15 +321,7 @@ sockets.on("connection", (socket) => {
       if(match.player1.ready && match.player2.ready)
       {
         match.status = "PLAY";
-        match.ball = {
-          width: 5,
-          xdirection: 1,
-          ydirection: 2,
-          xspeed: 2.8,
-          yspeed: 2.2,
-          x: gameConfig.width / 2,
-          y: gameConfig.height / 2,
-        }
+        restartMatch(match);
       }
     })
 
