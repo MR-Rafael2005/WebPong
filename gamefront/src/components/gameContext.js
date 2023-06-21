@@ -144,6 +144,9 @@ const GameProvider = (props) => {
         socket.on("MatchUpdate", (match) => {
             dispatch({type: "MATCH", newvalue: match})
         })
+        socket.on("ClearMatch", () => {
+            dispatch({type: "MATCH", newvalue: {}})
+        })
         socket.on("NamesUpdate", (names) => {
             dispatch({type: "PNAME", newvalue: names[socket.id]})
             dispatch({type: "PSNAME", newvalue: names})

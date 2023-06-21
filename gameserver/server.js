@@ -17,7 +17,8 @@ const sockets = new Server(server, {
 
 const gameConfig = {
   width: 580,
-  height: 320
+  height: 320,
+  maxScore: 5
 }
 
 const game = {
@@ -56,7 +57,7 @@ const gameProgress = (roomID) => {
     case "PLAY":
       moveBall(match);
       movePaddle(match);
-      checkColision(match);
+      checkColision(match, roomID);
       break;
   }
 
@@ -65,7 +66,7 @@ const gameProgress = (roomID) => {
   setTimeout(() => {gameProgress(roomID)}, 1000 / 30);
 }
 
-const checkColision = (match) => {
+const checkColision = (match, roomID) => {
   const { gameConfig, ball} = match;
 
   if(ball.y > gameConfig.height - ball.width)
@@ -132,10 +133,10 @@ const checkColision = (match) => {
     ball.xspeed *= 1.1;
   } else if(ball.x < ball.width) {
     match.score2++;
-    restartMatch(match);
+    restartMatch(match, roomID);
   } else if(ball.x > gameConfig.width - ball.width) {
     match.score1++;
-    restartMatch(match);
+    restartMatch(match, roomID);
   }
 
 }
@@ -171,7 +172,16 @@ const movePaddle = (match) => {
   })
 }
 
-const restartMatch = (match) => {
+const restartMatch = (match, roomID) => {
+
+  if(match.score1 === match.gameConfig.maxScore || match.score2 === match.gameConfig.maxScore)
+  {
+    const playerN = match.score1 === match.gameConfig.maxScore ? 1 : 2;
+    const playerSocketID = game.rooms[roomID]["player" + playerN];
+    match.status = "END";
+    match.message = "O JOGADOR \"" +  game.names[playerSocketID].newname + "\" GANHOU";
+  }
+
   match.ball = {
     width: 5,
     xdirection: match.ball ? match.ball.xdirection * -1 : 1,
@@ -198,8 +208,11 @@ const leaveRoom = (socket) => {
     if(match)
     {
       match[playerN] = undefined;
-      match.status = "END";
-      match.message = "O player " + game.names[socket.id].newname + " se desconectou";
+      if(match.status !== "END")
+      {
+        match.status = "END";
+        match.message = "O player " + game.names[socket.id].newname + " se desconectou";    
+      }
     }
 
     if((room.player1 === undefined && room.player2 === undefined))
@@ -212,8 +225,9 @@ const leaveRoom = (socket) => {
       }
     }
     game.players[socketID].room = undefined;
-    updateMatchs(roomID);
     socket.leave(roomID);
+    updateMatchs(roomID);
+    socket.emit("ClearMatch")
   }
 }
 
