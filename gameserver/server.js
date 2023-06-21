@@ -171,7 +171,7 @@ const leaveRoom = (socket) => {
     {
       match[playerN] = undefined;
       match.status = "END";
-      match.message = "O player " + game.players[socketID].name + " se desconectou";
+      match.message = "O player " + game.names[socket.id].newname + " se desconectou";
     }
 
     if((room.player1 === undefined && room.player2 === undefined))
@@ -203,9 +203,11 @@ sockets.on("connection", (socket) => {
 
     socket.on('disconnect', () => {
       leaveRoom(socket);
-      sendMessage(game.names[socket.id].newname, "(SAIU)");
+      if(game.names[socket.id])
+      {
+        delete game.names[socket.id];
+      }
       delete game.players[socket.id];
-      delete game.names[socket.id];
       updatePlayers();
       nameUpdate();
       updateRooms();
