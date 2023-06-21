@@ -182,6 +182,12 @@ const restartMatch = (match, roomID) => {
     match.message = "O JOGADOR \"" +  game.names[playerSocketID].newname + "\" GANHOU";
   }
 
+  game.rooms[roomID] = {
+    ...game.rooms[roomID], 
+    score1: match.score1, 
+    score2: match.score2
+  }
+
   match.ball = {
     width: 5,
     xdirection: match.ball ? match.ball.xdirection * -1 : 1,
@@ -191,6 +197,8 @@ const restartMatch = (match, roomID) => {
     x: gameConfig.width / 2,
     y: gameConfig.height / 2,
   }
+
+  updateRooms();
 }
 
 const leaveRoom = (socket) => {
@@ -335,8 +343,10 @@ sockets.on("connection", (socket) => {
       if(match.player1.ready && match.player2.ready)
       {
         match.status = "PLAY";
-        restartMatch(match);
+        restartMatch(match, roomID);
       }
+
+      updateRooms();
     })
 
 
