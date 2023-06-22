@@ -264,7 +264,7 @@ sockets.on("connection", (socket) => {
     })
 
     socket.on("SendMessage", (message) => {
-      sendMessage(game.players[socket.id].name, message);
+      sendMessage(game.names[socket.id].newname, message);
     })
 
     socket.on("CreateRoom", () => {

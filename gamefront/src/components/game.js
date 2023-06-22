@@ -3,7 +3,7 @@ import SVG, {Circle, Rect, Line} from "react-svg-draw";
 import { GameContext,gameLoaded, leaveRoom, sendKey } from "./gameContext";
 const Game = () => {
 
-    const {isConnect, room, rooms, player, players, messages, match} = useContext(GameContext);
+    const {match} = useContext(GameContext);
     const {gameConfig, ball, message, player1, player2} = match;
 
     useEffect(() => {
@@ -17,6 +17,8 @@ const Game = () => {
                 case "ArrowDown":
                     sendKey( type, key );
                     e.preventDefault();
+                    break;
+                default:
                     break;
             }
             

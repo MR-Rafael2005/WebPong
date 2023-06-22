@@ -3,13 +3,13 @@ import React from "react";
 import { useContext, useState } from "react";
 import PlayerList from "./playerList.js";
 import Chat from "./chat.js";
-import { GameContext, sendM, createRoom, leaveRoom, joinRoom, sendName } from "./gameContext.js";
+import { GameContext, sendM, sendName } from "./gameContext.js";
 import RoomsList from "./roomsList.js";
 import Game from "./game.js";
 
 const Pong = () => {
 
-    const {isConnect, room, rooms, player, players, messages, match, playerName, playersName, named} = useContext(GameContext);
+    const {isConnect, messages, match, playersName, named} = useContext(GameContext);
     const [nameToSend, setNameToSend] = useState("");
 
     const sendNameF = () => {

@@ -1,9 +1,9 @@
 import React from "react";
 import { useContext } from "react";
-import { GameContext, sendM, createRoom, leaveRoom, joinRoom } from "./gameContext.js";
+import { GameContext, createRoom, leaveRoom, joinRoom } from "./gameContext.js";
 
 const RoomsList = () => {
-    const {isConnect, room, rooms, player, players, messages} = useContext(GameContext);
+    const { rooms, player } = useContext(GameContext);
     
     return(
         <>
